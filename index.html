@@ -1,0 +1,88 @@
+<!doctypehtml>
+<html lang=en>
+<meta charset=UTF-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Just Click Start - Main Menu</title>
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      font-family: 'Courier New', Courier, monospace;
+      color: #0f0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, .7);
+      overflow: hidden;
+      cursor: url(cursor.png), auto
+    }
+
+    .main-menu {
+      text-align: center;
+      filter: blur(0);
+      animation: flicker .1s infinite
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin-bottom: 50px;
+      filter: drop-shadow(0 0 5px rgba(0, 255, 0, .8))
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      margin: 15px;
+      border: 2px solid #0f0;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, .7);
+      color: #0f0;
+      cursor: pointer;
+      transition: background-color .3s ease, transform .1s;
+      position: relative;
+      z-index: 1;
+      cursor: url(cursor.png), auto
+    }
+
+    button:hover {
+      background-color: rgba(0, 255, 0, .3);
+      transform: scale(1.1);
+      cursor: url(cursor.png), auto
+    }
+
+    .flicker-cursor {
+      cursor: url(cursor.png), auto
+    }
+
+    @keyframes flicker {
+      0% {
+        filter: blur(0)
+      }
+
+      50% {
+        filter: blur(1px)
+      }
+
+      100% {
+        filter: blur(0)
+      }
+    }
+
+    .vhs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(rgba(255, 255, 255, .05) 0, rgba(255, 255, 255, .05) 1%, transparent 1%, transparent 2%);
+      z-index: -1
+    }
+</style>
+<div class=vhs></div>
+<div class=main-menu>
+    <h1>Just Click Start</h1><button id=startGame>Start Game</button><button id=options>Options</button><button id=exit>Credits</button>
+</div><audio id=bgMusic src=music.mp3 loop></audio><audio id=clickSound src=click.mp3></audio>
+<script src=index.js></script>
