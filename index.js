@@ -1,36 +1,12 @@
-const bgMusic = document.getElementById('bgMusic');
-const clickSound = document.getElementById('clickSound');
-const button = document.getElementById('startGame');
-
 window.onload = () => {
-    bgMusic.volume = localStorage.getItem('bgVolume') || 1;
-    clickSound.volume = localStorage.getItem('clickVolume') || 1;
-
-    startMusicRandomly();
-
-    button.onmouseenter = () => button.classList.add('flicker-cursor');
-    button.onmouseleave = () => button.classList.remove('flicker-cursor');
-    button.onclick = () => handleClick('game.html');
-    
-    document.getElementById('options').onclick = () => handleClick('options.html');
-    document.getElementById('exit').onclick = () => handleClick('credits.html');
-    
-    document.body.onclick = startMusicRandomly;
-};
-
-const handleClick = (url) => {
-    playClickSound();
-    startMusicRandomly();
-    setTimeout(() => window.location.href = url, 1000);
-};
-
-const playClickSound = () => {
-    clickSound.currentTime = 0;
-    clickSound.play();
-};
-
-const startMusicRandomly = () => {
-    bgMusic.play().then(() => {
-        bgMusic.currentTime = Math.random() * bgMusic.duration;
-    }).catch(console.error);
+  const bgMusic = document.getElementById('bgMusic'), clickSound = document.getElementById('clickSound');
+  [bgMusic.volume, clickSound.volume] = [localStorage.getItem('bgVolume') || 1, localStorage.getItem('clickVolume') || 1];
+  const handleClick = (url) => { clickSound.currentTime = 0; clickSound.play(); setTimeout(() => location.href = url, 1000); };
+  const startMusicRandomly = () => bgMusic.play().then(() => bgMusic.currentTime = Math.random() * bgMusic.duration).catch(console.error);
+  
+  startMusicRandomly();
+  document.getElementById('startGame').onmouseenter = e => e.target.classList.add('flicker-cursor');
+  document.getElementById('startGame').onmouseleave = e => e.target.classList.remove('flicker-cursor');
+  ['startGame', 'options', 'exit'].forEach(id => document.getElementById(id).onclick = () => handleClick(`${id === 'startGame' ? 'game' : id}.html`));
+  document.body.onclick = startMusicRandomly;
 };
